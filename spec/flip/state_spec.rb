@@ -27,15 +27,22 @@ module Flip
 
         expect(state.cell(3, 4)).to eql(:foo)
       end
+
+      it 'assigns all filled adjacent cells to the player' do
+        state.make_move(:foo, 0, 0)
+        state.make_move(:bar, 0, 1)
+
+        expect(state.cell(0, 0)).to eql(:bar)
+      end
     end
 
     describe '#adjacent_cells' do
       let(:state) { State.new }
       it 'returns all adjecent cells' do
         state.make_move(:foo, 1, 1)
+        state.make_move(:bla, 3, 1)
         state.make_move(:bar, 2, 0)
         state.make_move(:baz, 2, 2)
-        state.make_move(:bla, 3, 1)
 
         expect(state.adjacent_cells(2, 1)).to match_array([:foo, :bar, :baz, :bla])
       end
