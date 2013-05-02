@@ -1,4 +1,4 @@
-require_relative '../../lib/flip/state'
+require_relative '../../lib/flip'
 
 module Flip
   describe State do

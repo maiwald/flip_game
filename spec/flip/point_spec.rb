@@ -1,4 +1,4 @@
-require_relative '../../lib/flip/point'
+require_relative '../../lib/flip'
 
 module Flip
   describe Point do
