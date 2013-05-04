@@ -29,7 +29,7 @@ module Flip
         )
       end
 
-      it 'returns all adjecent points' do
+      it 'handles edge cases correctly' do
         stub_const('Flip::BOARD_SIZE', 1)
         point = Point.new(0, 0)
 
@@ -37,20 +37,5 @@ module Flip
       end
     end
 
-    describe '#score_for' do
-      it 'returns the number of cells a player occupies' do
-        stub_const('Flip::BOARD_SIZE', 2)
-        state = State.new
-
-        state.set_cell(Point.new(0, 0), :foo)
-        state.set_cell(Point.new(0, 1), :foo)
-        state.set_cell(Point.new(1, 0), :foo)
-        state.set_cell(Point.new(1, 1), :bar)
-
-        expect(state.score_for(:foo)).to eql(3)
-        expect(state.score_for(:bar)).to eql(1)
-        expect(state.score_for(:invalid_player)).to eql(0)
-      end
-    end
   end
 end
