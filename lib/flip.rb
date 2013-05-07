@@ -24,3 +24,5 @@ module Flip
   end
 
 end
+
+Flip.start_game
