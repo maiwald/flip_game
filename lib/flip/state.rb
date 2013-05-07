@@ -10,11 +10,9 @@ module Flip
     end
 
     def make_move(player, point)
-      if cell_empty?(point)
-        set_cell(point, player)
-        point.adjacent.each do |p|
-          set_cell(p, player) unless cell_empty?(p)
-        end
+      set_cell(point, player)
+      point.adjacent.each do |p|
+        set_cell(p, player) unless cell_empty?(p)
       end
     end
 

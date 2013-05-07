@@ -19,7 +19,7 @@ module Flip
 
     def make_move(x, y)
       point = Point.new(x, y)
-      unless state.cell(point)
+      if state.cell_empty?(point)
         state.make_move(next_player, point)
       end
     end

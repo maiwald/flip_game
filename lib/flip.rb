@@ -15,6 +15,7 @@ module Flip
       puts "make a move, #{game.current_player}"
       coords = gets.chomp.split(',').map(&:chomp).map(&:to_i)
       game.make_move(*coords)
+      # game.make_move(coords[0], coords[1])
       puts game
     end
 
@@ -24,5 +25,3 @@ module Flip
   end
 
 end
-
-Flip.start_game

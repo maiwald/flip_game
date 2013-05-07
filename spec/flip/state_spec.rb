@@ -22,14 +22,6 @@ module Flip
         expect(state.cell(point)).to eql(:foo)
       end
 
-      it 'only assigns empty cells' do
-        point = Point.new(3, 4)
-        state.make_move(:foo, point)
-        state.make_move(:bar, point)
-
-        expect(state.cell(point)).to eql(:foo)
-      end
-
       it 'assigns all filled adjacent cells to the player' do
         point = Point.new(0, 0)
         state.make_move(:foo, point)
