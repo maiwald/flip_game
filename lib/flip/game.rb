@@ -13,7 +13,8 @@ module Flip
     end
 
     def reset
-      @players = [:p1, :p2].cycle
+      @players = [:p1, :p2]
+      @current = 0
       @state = State.new
     end
 
@@ -25,12 +26,21 @@ module Flip
     end
 
     def current_player
-      players.peek
+      players.fetch(@current)
     end
 
     def next_player
-      players.next
+      c = @current
+      @current = (@current + 1) % players.size
+      players.fetch(c)
     end
+
+    def winner
+      if game_over?
+        players.max_by { |p| score_for(p) }
+      end
+    end
+
 
     def to_s
       str = ""

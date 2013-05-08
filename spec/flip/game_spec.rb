@@ -3,7 +3,7 @@ require_relative '../../lib/flip'
 module Flip
   describe Game do
     it 'is initialized with an enumerator of players' do
-      expect(Game.new.players).to be_a(Enumerator)
+      expect(Game.new.players).to eql([:p1, :p2])
     end
 
     it 'is initialized with new state state' do
