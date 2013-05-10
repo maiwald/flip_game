@@ -1,19 +1,22 @@
 require 'sinatra'
-require 'sinatra/reloader'
+require 'sinatra/reloader' if development?
 
 require_relative 'lib/flip'
 require_relative 'presenters/game_presenter'
 
-also_reload File.join(File.dirname(__FILE__), 'presenters')
-also_reload File.join(File.dirname(__FILE__), 'lib/flip')
+if development?
+  also_reload File.join(File.dirname(__FILE__), 'presenters')
+  also_reload File.join(File.dirname(__FILE__), 'lib/flip')
+end
 
 GAME = Flip::Game.new
 
-
 get '/' do
   game_presenter = GamePresenter.new(GAME, self)
-  haml :index, format: :html5,
-    locals: { game: GAME, game_presenter: game_presenter  }
+  haml :index, format: :html5, locals: {
+    game: GAME,
+    game_presenter: game_presenter
+  }
 end
 
 get '/make_move' do
@@ -29,7 +32,6 @@ end
 get '/stylesheet.css' do
   sass :stylesheet, style: :compressed
 end
-
 
 helpers do
 

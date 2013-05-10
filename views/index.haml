@@ -1,6 +1,7 @@
 - if game.game_over?
   %h1= "#{game.winner} gewinnt!"
-  %p= "(#{game.score_for(game.winner)} : #{game.score_for(game.loser)})"
+  - game.players.each do |p|
+    %p= "#{p}: #{game.score_for(p)}"
 - else
   %h1= "Aktueller Spieler: #{game.current_player}"
 
