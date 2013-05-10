@@ -3,17 +3,23 @@ module Flip
 
     attr_reader :board
 
-    def initialize
-      @board = Array.new(Flip::BOARD_SIZE).map do |e|
+    def initialize(board = nil)
+      @board = board || Array.new(Flip::BOARD_SIZE).map do |e|
         e = Array.new(Flip::BOARD_SIZE)
       end
     end
 
     def make_move(player, point)
-      set_cell(point, player)
+      return self unless cell_empty?(point)
+
+      result = State.new(@board.map { |row| row.clone })
+
+      result.set_cell(point, player)
       point.adjacent.each do |p|
-        set_cell(p, player) unless cell_empty?(p)
+        result.set_cell(p, player) unless cell_empty?(p)
       end
+
+      result
     end
 
     def score_for(player)
@@ -36,5 +42,19 @@ module Flip
       cell(point).nil?
     end
 
+    def successors(player)
+      result = []
+      (0...Flip::BOARD_SIZE).each do |x|
+        (0...Flip::BOARD_SIZE).each do |y|
+          point = Point.new(x, y)
+          result << make_move(player, point) if cell_empty?(point)
+        end
+      end
+      result
+    end
+
+    def ==(other)
+      board == other.board
+    end
   end
 end

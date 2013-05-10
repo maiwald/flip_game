@@ -15,19 +15,26 @@ module Flip
     describe '#make_move' do
       let(:state) { State.new }
 
-      it 'assigns a player to a cell' do
+      it 'returns a new state with player assigned to the cell' do
         point = Point.new(3, 4)
-        state.make_move(:foo, point)
+        new_state = state.make_move(:foo, point)
 
-        expect(state.cell(point)).to eql(:foo)
+        expect(state.cell(point)).to eql(nil)
+        expect(new_state.cell(point)).to eql(:foo)
       end
 
       it 'assigns all filled adjacent cells to the player' do
         point = Point.new(0, 0)
-        state.make_move(:foo, point)
-        state.make_move(:bar, Point.new(0, 1))
+        new_state = state.make_move(:foo, point).make_move(:bar, Point.new(0, 1))
 
-        expect(state.cell(point)).to eql(:bar)
+        expect(new_state.cell(point)).to eql(:bar)
+      end
+
+      it 'returns self when the cell is already filled' do
+        point = Point.new(0, 0)
+        state.set_cell(point, :foo)
+
+        expect(state.make_move(:foo, point)).to eql(state)
       end
     end
 
@@ -54,8 +61,35 @@ module Flip
         state = State.new
         expect(state.game_over?).to be_false
 
-        state.make_move(:foo, Point.new(0, 0))
+        state.set_cell(Point.new(0, 0), :foo)
         expect(state.game_over?).to be_true
+      end
+    end
+
+    describe '#successors' do
+      let(:state) { State.new }
+
+      before do
+        stub_const('Flip::BOARD_SIZE', 2)
+      end
+
+      it 'returns all possible successor states' do
+        expect(state.successors(:foo)).to match_array([
+          state.make_move(:foo, Point.new(0, 0)),
+          state.make_move(:foo, Point.new(0, 1)),
+          state.make_move(:foo, Point.new(1, 0)),
+          state.make_move(:foo, Point.new(1, 1))
+        ])
+      end
+
+      it 'only returns states different from the initial state' do
+        state.set_cell(Point.new(0, 0), :bar)
+
+        expect(state.successors(:foo)).to match_array([
+          state.make_move(:foo, Point.new(0, 1)),
+          state.make_move(:foo, Point.new(1, 0)),
+          state.make_move(:foo, Point.new(1, 1))
+        ])
       end
     end
   end

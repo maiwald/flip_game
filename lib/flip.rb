@@ -4,9 +4,10 @@ module Flip
 
   BOARD_SIZE = 5
 
-  autoload :Game,  'flip/game'
-  autoload :State, 'flip/state'
-  autoload :Point, 'flip/point'
+  autoload :Game,   'flip/game'
+  autoload :AiGame, 'flip/ai_game'
+  autoload :State,  'flip/state'
+  autoload :Point,  'flip/point'
 
   def self.start_game
     game = Game.new

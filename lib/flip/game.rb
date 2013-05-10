@@ -21,7 +21,7 @@ module Flip
     def make_move(x, y)
       point = Point.new(x, y)
       if state.cell_empty?(point)
-        state.make_move(next_player, point)
+        @state = state.make_move(next_player, point)
       end
     end
 
@@ -36,17 +36,12 @@ module Flip
     end
 
     def winner
-      if game_over?
-        players.max_by { |p| score_for(p) }
-      end
+      players.max_by { |p| score_for(p) } if game_over?
     end
 
     def loser
-      if game_over?
-        players.min_by { |p| score_for(p) }
-      end
+      players.min_by { |p| score_for(p) } if game_over?
     end
-
 
     def to_s
       str = ""

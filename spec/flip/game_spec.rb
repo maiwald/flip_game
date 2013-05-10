@@ -24,25 +24,19 @@ module Flip
     end
 
     describe '#make_move' do
-      let(:state) { State.new }
       let(:game) { Game.new }
 
-      before do
-        game.stub(:state).and_return(state)
-      end
-
-      it 'makes a move as the current player' do
-        state.should_receive(:make_move).with(:p1, Point.new(0, 0))
-        state.should_receive(:make_move).with(:p2, Point.new(1, 1))
-
+      it 'makes a move as the next player' do
+        game.should_receive(:next_player).and_return(:foo)
         game.make_move(0, 0)
-        game.make_move(1, 1)
+        expect(game.state.cell(Point.new(0,0))).to eql(:foo)
       end
 
       it "only makes move when point's cell is not nil" do
-        game.make_move(0, 0)
+        state = stub(:state, :cell_empty? => false)
+        game.should_receive(:state).and_return(state)
 
-        state.should_not_receive(:make_move).with(:p2, Point.new(0, 0))
+        state.should_not_receive(:make_move)
         game.make_move(0, 0)
       end
     end

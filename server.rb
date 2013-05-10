@@ -2,6 +2,7 @@ require 'sinatra'
 require 'sinatra/reloader' if development?
 
 require_relative 'lib/flip'
+require_relative 'lib/solver'
 require_relative 'presenters/game_presenter'
 
 if development?
@@ -9,7 +10,7 @@ if development?
   also_reload File.join(File.dirname(__FILE__), 'lib/flip')
 end
 
-GAME = Flip::Game.new
+GAME = Flip::AiGame.new
 
 get '/' do
   game_presenter = GamePresenter.new(GAME, self)
