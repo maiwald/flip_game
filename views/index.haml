@@ -1,9 +1,16 @@
-- if game.game_over?
-  %h1= "#{game.winner} gewinnt!"
-  - game.players.each do |p|
-    %p= "#{p}: #{game.score_for(p)}"
-- else
-  %h1= "Aktueller Spieler: #{game.current_player}"
 
-= game_presenter.present
-%p= link_to "reset", url('reset')
+#game= game_presenter.present
+
+#info
+  - if game.game_over?
+    %h1= "#{game.winner} gewinnt!"
+  - else
+    %h1= "Aktueller Spieler: #{game.current_player}"
+
+  .players
+    - game.players.each do |p|
+      %p{ class: "player #{p}" }
+        %span.name= p
+        %span.score= game.score_for(p)
+
+  %p= link_to "reset", url('reset')
