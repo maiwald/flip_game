@@ -50,7 +50,7 @@ helpers do
   private
 
   def strigify_attributes(attributes)
-    replace_quotes(attributes.map { |k,v| "#{k}='#{v}'" }.join)
+    replace_quotes(attributes.map { |k,v| "#{k}='#{v}'" }.join(' '))
   end
 
   def replace_quotes(s)
