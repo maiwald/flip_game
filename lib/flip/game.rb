@@ -41,6 +41,12 @@ module Flip
       end
     end
 
+    def loser
+      if game_over?
+        players.min_by { |p| score_for(p) }
+      end
+    end
+
 
     def to_s
       str = ""
