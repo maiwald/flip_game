@@ -1,2 +1,10 @@
+.DS_STORE
+*.swp
+*.rbc
+*.sass-cache
+/pkg
+/doc/api
+/Gemfile.lock
+
 .bundle/
 vendor/

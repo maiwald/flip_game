@@ -46,5 +46,24 @@ module Flip
         game.make_move(0, 0)
       end
     end
+
+    describe '#winner/#loser' do
+      it 'returns the player with the most owned cells' do
+        stub_const('Flip::BOARD_SIZE', 1)
+        game = Game.new
+
+        game.make_move(0,0)
+
+        expect(game.winner).to eql(:p1)
+        expect(game.loser).to eql(:p2)
+      end
+
+      it 'returns nil if the game is not over yet' do
+        game = Game.new
+
+        expect(game.winner).to eql(nil)
+        expect(game.loser).to eql(nil)
+      end
+    end
   end
 end

@@ -1,0 +1,8 @@
+- if game.game_over?
+  %h1= "#{game.winner} gewinnt!"
+  %p= "(#{game.score_for(game.winner)} : #{game.score_for(game.loser)})"
+- else
+  %h1= "Aktueller Spieler: #{game.current_player}"
+
+= game_presenter.present
+%p= link_to "reset", url('reset')
