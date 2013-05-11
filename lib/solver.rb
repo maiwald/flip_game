@@ -7,7 +7,7 @@ module Solver
 
   def self.solve(state, players, player, depth)
     node = Node.new(nil, state, players, player)
-    result = MiniMax.max(node, [NegInfinity, nil], [Infinity, nil], depth).fetch(1)
+    result = MiniMax.max(node, [NegInfinity, nil], [Infinity, nil], depth * 2).fetch(1)
 
     while result.parent.state != state
       result = result.parent
