@@ -22,6 +22,14 @@ module Flip
       result
     end
 
+    def rating_for(player)
+      surrounded_points = points.find_all do |p|
+        cell(p) == player && p.adjacent.none? { |adjacent| cell_empty?(p) }
+      end.count
+
+      score_for(player) + 3 * surrounded_points
+    end
+
     def score_for(player)
       board.flatten.find_all { |e| e == player }.size
     end
@@ -42,15 +50,18 @@ module Flip
       cell(point).nil?
     end
 
-    def successors(player)
-      result = []
-      (0...Flip::BOARD_SIZE).each do |x|
-        (0...Flip::BOARD_SIZE).each do |y|
-          point = Point.new(x, y)
-          result << make_move(player, point) if cell_empty?(point)
+    def points
+      (0...Flip::BOARD_SIZE).map do |x|
+        (0...Flip::BOARD_SIZE).map do |y|
+          Point.new(x, y)
         end
+      end.flatten
+    end
+
+    def successors(player)
+      points.find_all { |p| cell_empty?(p) }.map do |point|
+        make_move(player, point)
       end
-      result
     end
 
     def ==(other)

@@ -12,7 +12,7 @@ module Flip
         point = Point.new(1, 1)
 
         expect(point.adjacent).to match_array(
-          [[0, 1], [2, 1], [1, 0], [1, 2]].map do |coordinates|
+          [[0, 1], [2, 1], [1, 0], [1, 2], [0, 0], [0, 2], [2, 0], [2, 2]].map do |coordinates|
             Point.new(*coordinates)
           end
         )
@@ -23,7 +23,7 @@ module Flip
         point = Point.new(0, 0)
 
         expect(point.adjacent).to match_array(
-          [[0, 1], [1, 0]].map do |coordinates|
+          [[0, 1], [1, 0], [1, 1]].map do |coordinates|
             Point.new(*coordinates)
           end
         )

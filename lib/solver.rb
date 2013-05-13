@@ -29,7 +29,7 @@ module Solver
     end
 
     def rating
-      state.score_for(@current_player)
+      state.rating_for(@current_player)
     end
 
     def children
