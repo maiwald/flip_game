@@ -11,7 +11,6 @@ if development?
 end
 
 GAME = Flip::Game.new
-GAME.extend(Flip::Ai)
 
 get '/' do
   game_presenter = GamePresenter.new(GAME, self)
@@ -27,7 +26,7 @@ get '/make_move' do
 end
 
 get '/make_cpu_move' do
-  GAME.make_cpu_move if GAME.respond_to?(:make_cpu_move)
+  GAME.make_cpu_move
   redirect to('/')
 end
 

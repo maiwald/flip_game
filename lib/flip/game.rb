@@ -1,4 +1,5 @@
 require 'forwardable'
+require_relative '../solver'
 
 module Flip
   class Game
@@ -22,6 +23,12 @@ module Flip
       point = Point.new(x, y)
       if state.cell_empty?(point)
         @state = state.make_move(next_player, point)
+      end
+    end
+
+    def make_cpu_move
+      unless game_over?
+        @state = Solver.solve(@state, players, next_player, 2)
       end
     end
 
