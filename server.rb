@@ -25,6 +25,11 @@ get '/make_move' do
   redirect to('/')
 end
 
+get '/make_cpu_move' do
+  GAME.make_cpu_move if GAME.respond_to?(:make_cpu_move)
+  redirect to('/')
+end
+
 get '/reset' do
   GAME.reset
   redirect to('/')

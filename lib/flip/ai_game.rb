@@ -2,12 +2,9 @@ require_relative '../solver'
 
 module Flip
   class AiGame < Game
-    def make_move(x, y)
-      super(x, y)
-
+    def make_cpu_move
       unless game_over?
-        next_state = Solver.solve(@state, players, next_player, 2)
-        @state = next_state
+        @state = Solver.solve(@state, players, next_player, 2)
       end
     end
   end
