@@ -5,7 +5,7 @@ module Flip
   BOARD_SIZE = 5
 
   autoload :Game,   'flip/game'
-  autoload :AiGame, 'flip/ai_game'
+  autoload :Ai,     'flip/ai'
   autoload :State,  'flip/state'
   autoload :Point,  'flip/point'
 

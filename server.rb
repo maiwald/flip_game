@@ -10,7 +10,8 @@ if development?
   also_reload File.join(File.dirname(__FILE__), 'lib/flip')
 end
 
-GAME = Flip::AiGame.new
+GAME = Flip::Game.new
+GAME.extend(Flip::Ai)
 
 get '/' do
   game_presenter = GamePresenter.new(GAME, self)
